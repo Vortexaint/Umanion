@@ -1,0 +1,1 @@
+# Empty Bar Color RGB: 118, 117, 118

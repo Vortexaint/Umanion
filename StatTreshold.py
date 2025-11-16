@@ -42,13 +42,13 @@ def CurrentUma(uma_result):
 def StyleCondition(style_name):
     s = style_name.strip().lower()
     if s == 'front':
-        return {'Speed': 750, 'Power': 350, 'Guts': 300}
+        return {'Speed': 750, 'Power': 350, 'Guts': 300, 'Wit': 300}
     if s == 'mile':
-        return {'Speed': 650, 'Power': 500, 'Guts': 300}
+        return {'Speed': 650, 'Power': 500, 'Guts': 300, 'Wit': 300}
     if s == 'late':
-        return {'Speed': 550, 'Power': 600, 'Guts': 300}
+        return {'Speed': 550, 'Power': 600, 'Guts': 300, 'Wit': 300}
     if s == 'end':
-        return {'Speed': 550, 'Power': 600, 'Guts': 300}
+        return {'Speed': 550, 'Power': 600, 'Guts': 300, 'Wit': 300}
     return {}
 
 
@@ -68,6 +68,3 @@ if __name__ == '__main__':
         distance_affinity={'Sprint': 'A', 'Mile': 'A'},
         style_affinity={'Front': 'A'}
     )
-    print('UmaCheck demo:', demo)
-    print('Pick style thresholds for Front:', StyleCondition('Front'))
-    print('Distance thresholds (junior+classic):', DistanceCondition(junior=True, classic=True))
