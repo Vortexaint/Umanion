@@ -1,3 +1,5 @@
+# Empty Bar Color RGB: 118, 117, 118
+
 RACES_COUNT = {
     'Turf': 31,
     'Dirt': 13,
