@@ -10,7 +10,7 @@ except Exception:
     tk = None
     ImageTk = None
 
-from Ocr import OCR
+from ocr import OCR
 from capture import capture_primary_monitor
 
 

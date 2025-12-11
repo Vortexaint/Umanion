@@ -33,4 +33,4 @@ def preprocess_folder(src_folder, dst_folder):
                 preprocess_image(in_path, out_path)
 
 if __name__ == "__main__":
-    preprocess_folder("Assets", "Preprocessed")
+    preprocess_folder("assets", "preprocessed")

@@ -8,7 +8,7 @@ import argparse
 import re
 import time
 import numpy as np
-from Ocr import OCR
+from ocr import OCR
 from capture import capture_primary_monitor
 from live_clone import LiveCloneController
 
