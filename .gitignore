@@ -1,0 +1,28 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Debug and outputs
+Debug/
+Preprocessed/
+Preprocessed/**
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Tesseract cache (if any)
+*.traineddata
