@@ -1,0 +1,67 @@
+names:
+- 2nd
+- Energy
+- Great
+- Next
+- Next_race
+- Ok
+- OutOfHand
+- Race
+- add
+- alarmclocks
+- awful
+- back
+- bad
+- blue_skill
+- cancel
+- confirm
+- cur_fans
+- cur_stats
+- distance_star
+- end_career
+- fail
+- fans
+- fren_bar
+- go
+- goal
+- good
+- green_heart_skill
+- guts
+- infirmary
+- learn
+- normal
+- orange_skill
+- power
+- race_box
+- race_day
+- race_details
+- race_green
+- recreation
+- respect
+- rest
+- silence_suzuka
+- skill
+- skill_day
+- skill_name
+- skill_pts
+- skip
+- skip_green
+- sparks
+- speed
+- stamina
+- start_career
+- terrian_star
+- training
+- try_again
+- turns
+- wit
+nc: 56
+roboflow:
+  license: CC BY 4.0
+  project: uma-musume-530w1
+  url: https://universe.roboflow.com/lance-dwgrv/uma-musume-530w1/dataset/3
+  version: 3
+  workspace: lance-dwgrv
+test: ../test/images
+train: Uma-Musume-3/train/images
+val: Uma-Musume-3/valid/images

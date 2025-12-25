@@ -1,4 +1,42 @@
-mss
-Pillow
-pytesseract
-numpy
+# Core dependencies
+opencv-python>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Screenshot capture
+mss>=9.0.0
+pygetwindow>=0.0.9
+
+# Input control
+pyautogui>=0.9.54
+pywinauto>=0.6.8
+
+# OCR
+pytesseract>=0.3.10
+easyocr>=1.7.0
+# Note: Tesseract-OCR must be installed separately
+# Download from: https://github.com/UB-Mannheim/tesseract/wiki
+
+# YOLO for object detection
+ultralytics>=8.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Server & API
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Utilities
+psutil>=5.9.0
+watchdog>=3.0.0
+pyyaml>=6.0
+
+# Logging & monitoring
+python-json-logger>=2.0.7
+
+# Testing
+pytest>=7.4.0
+pytest-mock>=3.11.0
+pytest-cov>=4.1.0
+roboflow>=1.0.8
