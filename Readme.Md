@@ -1,48 +1,171 @@
-# Uma Automation System
+# Uma Musume Automation System
 
-A comprehensive automation system with OCR, YOLO object detection, template matching, and screen control.
+An intelligent automation system for Uma Musume that plays the game automatically using computer vision and AI. The system can detect game elements, read text, make decisions, and perform actions - handling everything from training selection to race participation.
 
-## Features
+## 🎮 What Does This Do?
 
-- **OCR Text Detection**: Find and read text on screen using EasyOCR
-- **YOLO Training System**: Train custom object detectors with interactive Y/N labeling
-- **Template Matching**: Find UI elements using OpenCV template matching
-- **Screen Capture**: Capture from multiple monitors with live monitoring
-- **Automation**: Control mouse and keyboard (PyAutoGUI wrapper)
+This program **fully automates** the Uma Musume game by:
+- **Automatically training your Uma** - Selects the best training options based on stats and energy
+- **Managing races** - Schedules and participates in races, changes strategies based on aptitudes
+- **Handling events** - Reads event text and selects the best choice from a 40,000+ event database
+- **Managing mood and energy** - Uses recreation when mood is low, rests when energy is depleted
+- **Reading stats and goals** - Tracks your Uma's progress and adjusts training priorities
+- **Recording everything** - Saves videos and logs of the entire automation session
 
-## Installation
+The system uses three detection methods:
+1. **YOLO AI** - Fast object detection for buttons and UI elements
+2. **OCR** - Reads text for stats, events, and goals
+3. **Template Matching** - Precise detection of specific buttons and icons
+
+## 🚀 Quick Start
+
+### Installation
 
 1. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. (Optional) Install Tesseract OCR:
-   - Download from: https://github.com/UB-Mannheim/tesseract/wiki
-   - Add to PATH
+2. Ensure you have the YOLO model:
+   - Should be at `yolo_project/train/weights/best.pt`
 
-## Quick Start
+### Running the Automation
 
-### Test 1: Find Text on Screen
-
-Run the main test to find specific text on your screen:
-
+**Basic usage (with video recording):**
 ```bash
-python src/main.py test1
+python src/game_automation.py --monitor 2
 ```
 
-This will search for:
-- Turn(s) left
-- Junior Year Pre-Debut
-- Normal, Rest, Training, Skills
-- infirmary, Recreation, Races
-- Full, Stats, Career, Profile
+**Without video recording (faster):**
+```bash
+python src/game_automation.py --monitor 2 --no-video
+```
 
-### Demo All Systems
+**Stop automation:**
+- Press **F1** to gracefully stop the automation
+
+### Monitor Numbers
+- `--monitor 1` = Primary monitor
+- `--monitor 2` = Secondary monitor (where game is displayed)
+- `--monitor 3` = Third monitor, etc.
+
+## 📊 What Happens During Automation?
+
+The automation runs in a continuous loop:
+
+1. **Check Game State** - Captures screen and detects current menu/screen
+2. **Check Mood** - Uses recreation if mood is below "Good"
+3. **Navigate Menu** - Detects buttons (FullStats, RaceDay, Go, etc.)
+4. **Make Decisions**:
+   - If race day → Select and participate in race
+   - If training available → Choose best training based on stats
+   - If event appears → Select optimal choice
+   - If energy low → Go to rest
+5. **Record Everything** - Saves video and logs all actions
+
+## 🎯 Key Features
+
+- **🤖 Fully Automated**: Runs without any input required
+- **🎥 Video Recording**: Records session with detection visualizations (logs/automation_YYYYMMDD_HHMMSS.mp4)
+- **📝 Debug Logging**: Comprehensive logs for debugging (logs/automation_YYYYMMDD_HHMMSS.log)
+- **⚡ Smart Energy Management**: Automatically rests when energy < 50
+- **🏇 Intelligent Race Selection**: Chooses races based on terrain/distance affinity
+- **📖 Event Database**: Uses 40,000+ event database to select best choices
+- **🎯 Training Optimization**: Analyzes failure rates and stat gains
+- **😊 Mood Management**: Maintains good mood automatically
+
+## 📋 System Requirements
+
+- Python 3.8+
+- Windows (tested) / Linux / MacOS
+- Game displayed on a monitor (monitor 2 recommended)
+- YOLO model weights at `yolo_project/train/weights/best.pt`
+
+## 🧪 Testing Components
+
+Before running full automation, you can test individual components:
 
 ```bash
-python src/main.py demo
+# Test screen capture
+python src/test_automation.py --test capture --monitor 2
+
+# Test YOLO detection
+python src/test_automation.py --test yolo --monitor 2
+
+# Test template matching
+python src/test_automation.py --test template --template assets/Buttons/FullStats.png
+
+# Test OCR
+python src/test_automation.py --test ocr --region "300,200,600,250"
+
+# Test all components
+python src/test_automation.py --test all --monitor 2
 ```
+
+## 📁 Output Files
+
+### Log Files
+- **Location**: `logs/automation_YYYYMMDD_HHMMSS.log`
+- **Contents**: 
+  - All detections (YOLO, templates, OCR)
+  - Decision reasoning
+  - Click coordinates
+  - Error messages
+  - Performance metrics
+
+### Video Recordings
+- **Location**: `logs/automation_YYYYMMDD_HHMMSS.mp4`
+- **Features**:
+  - Visual overlay of all detections
+  - YOLO detections shown with bounding boxes
+  - Template matches highlighted
+  - 10 FPS recording of entire session
+
+### Debug Images
+- **Location**: `debug/`
+- **Contents**: Event regions, stat crops, and detection screenshots
+
+## 🎮 How It Works
+
+### Detection System
+### Debug Images
+- **Location**: `debug/`
+- **Types**:
+  - `test_screenshot.png` - Screen captures
+  - `test_yolo_detection.png` - YOLO visualization
+  - `test_template_*.png` - Template matches
+  - `stat_*.png` - Individual stat crops
+
+## 🎯 Automation Features
+
+### Mood Management
+- ✅ Detects mood levels (Awful/Bad/Normal/Good/Great)
+- ✅ Automatically uses Recreation when mood < Good
+- ✅ Skips mood check during July-August
+
+### Race System
+- ✅ Schedules G1 races based on terrain/distance affinity
+- ✅ Selects races with highest fans and matching stars
+- ✅ Changes strategy based on style aptitude (A/B priority)
+- ✅ Handles in-race interactions (Skip, Race2)
+
+### Training Selection
+- ✅ Analyzes all training options by hovering
+- ✅ Reads failure rate and stat gains for each
+- ✅ Selects best training based on current needs
+- ✅ Avoids high-failure trainings
+
+### Event Handling
+- ✅ Detects event screens
+- ✅ Matches events against 40,000+ event database
+- ✅ Selects optimal choice based on stat priorities
+- ✅ Avoids energy overflow and negative outcomes
+
+### Energy Management
+- ✅ Monitors energy levels continuously
+- ✅ Goes to rest when energy < 50
+- ✅ Prioritizes low-failure training when energy is low
+- ✅ Optimizes training selection when energy is high
 
 ## Usage Examples
 
@@ -230,23 +353,111 @@ The dataset will be downloaded by the Roboflow SDK into the repository (check th
 ```
 Uma/
 ├── src/
-│   ├── main.py              # Main automation system
-│   ├── ocr.py               # OCR functions
-│   ├── screen_capture.py    # Screen capture system
-│   ├── template_matcher.py  # Template matching
-│   ├── yolo_trainer.py      # YOLO training system
-│   ├── automation.py        # Automation control
-│   └── preprocessing.py     # Image preprocessing
-├── assets/                  # Template images
-│   ├── Buttons/
-│   ├── Icons/
-│   └── Training/
-├── data/                    # Game data
-├── debug/                   # Debug output
-├── logs/                    # Log files
-├── requirements.txt         # Dependencies
-└── README.md               # This file
+│   ├── game_automation.py      # 🤖 MAIN AUTOMATION SYSTEM
+│   ├── test_automation.py      # 🧪 Component testing
+│   ├── main.py                 # Legacy automation
+│   ├── ocr.py                  # OCR functions
+│   ├── screen_capture.py       # Screen capture system
+│   ├── template_matcher.py     # Template matching
+│   ├── yolo_trainer.py         # YOLO training system
+│   ├── automation.py           # Automation control
+│   ├── get_stats_region.py     # Stat reading from coordinates
+│   ├── stat_treshold.py        # Stat thresholds and checks
+│   └── preprocessing.py        # Image preprocessing
+├── assets/                     # Template images
+│   ├── Buttons/                # Button templates
+│   ├── Icons/                  # Icon templates
+│   └── Training/               # Training templates
+├── data/                       # Game data
+│   ├── races.json              # Race definitions
+│   ├── events.json             # Event choices database (40K+)
+│   └── skills.json             # Skill data
+├── yolo_training/              # YOLO dataset
+│   ├── data.yaml               # YOLO configuration
+│   ├── train/                  # Training images & labels
+│   ├── valid/                  # Validation images & labels
+│   └── test/                   # Test images & labels
+├── yolo_project/               # YOLO outputs
+│   └── weights/
+│       └── best.pt             # Trained YOLO model
+├── debug/                      # Debug output images
+├── logs/                       # Log files & video recordings
+├── requirements.txt            # Dependencies
+├── README.md                   # This file
+├── QUICKSTART.md               # 🚀 Quick start guide
+└── AUTOMATION_GUIDE.md         # 📚 Full automation documentation
 ```
+
+## 🏗️ System Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│           Game Automation System                     │
+│                                                      │
+│  ┌────────────────────────────────────────────┐    │
+│  │  Main Loop (game_automation.py)            │    │
+│  │  • Capture Screen                          │    │
+│  │  • Check Exit Conditions                   │    │
+│  │  • Process Game State                      │    │
+│  │  • Execute Actions                         │    │
+│  │  • Record Video                            │    │
+│  └────────────────────────────────────────────┘    │
+│              │        │         │         │         │
+│              ▼        ▼         ▼         ▼         │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐    │
+│  │ YOLO │ │ TMpl │ │ OCR  │ │ Auto │ │ Logs │    │
+│  │      │ │Match │ │      │ │      │ │      │    │
+│  └──────┘ └──────┘ └──────┘ └──────┘ └──────┘    │
+│      │        │        │        │        │         │
+│      └────────┴────────┴────────┴────────┘         │
+│                      │                              │
+│                      ▼                              │
+│           ┌──────────────────┐                     │
+│           │  Decision Engine │                     │
+│           │  • Mood Check    │                     │
+│           │  • Menu Navigate │                     │
+│           │  • Goal Tracking │                     │
+│           │  • Race Select   │                     │
+│           │  • Training Pick │                     │
+│           │  • Event Handle  │                     │
+│           └──────────────────┘                     │
+│                      │                              │
+│                      ▼                              │
+│           ┌──────────────────┐                     │
+│           │  Game Interface  │                     │
+│           │  • Click Buttons │                     │
+│           │  • Drag Mouse    │                     │
+│           │  • Read Stats    │                     │
+│           └──────────────────┘                     │
+└─────────────────────────────────────────────────────┘
+                       │
+                       ▼
+              ┌────────────────┐
+              │   Game Screen  │
+              └────────────────┘
+```
+
+## 📈 Detection Methods
+
+The automation uses three complementary detection methods:
+
+### 1. YOLO Object Detection
+**Use Case**: Real-time detection of game elements
+- **Pros**: Fast, rotation/scale invariant, handles multiple objects
+- **Cons**: Requires training data, can have false positives
+- **Examples**: Mood states, buttons, stat indicators
+
+### 2. Template Matching
+**Use Case**: Precise button and UI element location
+- **Pros**: No training needed, very accurate for exact matches
+- **Cons**: Sensitive to scale/rotation, slower
+- **Examples**: FullStats button, Close button, specific icons
+
+### 3. OCR Text Reading
+**Use Case**: Reading dynamic text and numbers
+- **Pros**: Reads any text, understands game state
+- **Cons**: Slower, sensitive to font/quality
+- **Examples**: Stat values, event text, goal descriptions
 
 ## Training Custom YOLO Models
 
